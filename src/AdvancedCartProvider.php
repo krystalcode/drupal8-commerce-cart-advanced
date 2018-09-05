@@ -448,14 +448,14 @@ class AdvancedCartProvider extends CartProvider implements AdvancedCartProviderI
       ->condition('o.uid', $uid);
 
     if ($current_only) {
-      $query->join(
+      $query->leftJoin(
         'commerce_order__' . COMMERCE_CART_ADVANCED_NON_CURRENT_FIELD_NAME,
         'n',
         'o.order_id = n.entity_id'
       );
       $column_name = 'n.' . COMMERCE_CART_ADVANCED_NON_CURRENT_FIELD_NAME . '_value';
       $or_condition = $query->orConditionGroup()
-        ->condition($column_name, FALSE)
+        ->condition($column_name, 0)
         ->isNull($column_name);
       $query->condition($or_condition);
     }
