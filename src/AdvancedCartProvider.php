@@ -462,6 +462,9 @@ class AdvancedCartProvider extends CartProvider implements AdvancedCartProviderI
 
     $query->orderBy('o.order_id', 'DESC');
 
+    // Allow modules to alter the query.
+    $query->addTag('commerce_cart_load_data');
+
     return $query;
   }
 
